@@ -11,7 +11,7 @@ Supports:
 ### Usage
 
 ```bash
-# ./kvfs -store consul -addr 1.2.3.4:8500 -addr 1.2.3.5:8500 -to /data
+$ sudo ./kvfs -store consul -addr 1.2.3.4:8500 -addr 1.2.3.5:8500 -to /data
 ```
 This command initiates a connection to the consul servers at the specified addresses and mounts the structure to `/data` on your filesystem.
 
