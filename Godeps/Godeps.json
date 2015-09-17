@@ -1,0 +1,51 @@
+{
+	"ImportPath": "github.com/cpuguy83/kvfs",
+	"GoVersion": "go1.4.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.8.7",
+			"Rev": "418b41d23a1bf978c06faea5313ba194650ac088"
+		},
+		{
+			"ImportPath": "github.com/boltdb/bolt",
+			"Comment": "v1.0-125-g033d4ec",
+			"Rev": "033d4ec028192f38aef67ae47bd7b89f343145b5"
+		},
+		{
+			"ImportPath": "github.com/coreos/go-etcd/etcd",
+			"Comment": "v2.0.0-32-g555b418",
+			"Rev": "555b4186480c545106eb89e0158e9fa0c2bebcf6"
+		},
+		{
+			"ImportPath": "github.com/docker/docker/pkg/signal",
+			"Comment": "v1.4.1-6261-g57c6012",
+			"Rev": "57c6012cf0dbe1097b2b876b0fbca5fa6dbf0e81"
+		},
+		{
+			"ImportPath": "github.com/docker/libkv",
+			"Rev": "4aec61dc3c9c1c4f11221a0c0cfde67ccb8f04c3"
+		},
+		{
+			"ImportPath": "github.com/hanwen/go-fuse/fuse",
+			"Rev": "324ea173d0a4d90e0e97c464a6ad33f80c9587a8"
+		},
+		{
+			"ImportPath": "github.com/hanwen/go-fuse/splice",
+			"Rev": "324ea173d0a4d90e0e97c464a6ad33f80c9587a8"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/consul/api",
+			"Comment": "v0.5.2-311-g0b05dbe",
+			"Rev": "0b05dbeb216f878ab08aa6267c1a23eeaab240ce"
+		},
+		{
+			"ImportPath": "github.com/samuel/go-zookeeper/zk",
+			"Rev": "177002e16a0061912f02377e2dd8951a8b3551bc"
+		},
+		{
+			"ImportPath": "github.com/ugorji/go/codec",
+			"Rev": "718a1bcd1902bb42e926b0e54f6686879f5a9a79"
+		}
+	]
+}
