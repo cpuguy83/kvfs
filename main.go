@@ -47,6 +47,7 @@ var (
 	flMountpoint = flag.String("to", "", "Set the mount point to use")
 	flStore      = flag.String("store", "", "Set the KV store type to use")
 	flDebug      = flag.Bool("debug", false, "enable debug logging")
+	flRoot       = flag.String("root", "", "set the root node for the store")
 )
 
 func main() {
@@ -73,7 +74,7 @@ func main() {
 		logrus.SetLevel(logrus.DebugLevel)
 	}
 
-	fs, err := fs.NewKVFS(fs.Options{*flStore, flAddrs.GetAll(), store.Config{}})
+	fs, err := fs.NewKVFS(fs.Options{*flStore, flAddrs.GetAll(), *flRoot, store.Config{}})
 	if err != nil {
 		logrus.Fatal(err)
 	}

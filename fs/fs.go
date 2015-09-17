@@ -1,6 +1,7 @@
 package fs
 
 import (
+	"fmt"
 	"path"
 	"strings"
 	"time"
@@ -16,11 +17,13 @@ import (
 type FS struct {
 	pathfs.FileSystem
 	kvStore store.Store
+	root    string
 }
 
 type Options struct {
 	Store  string
 	Addrs  []string
+	Root   string
 	Config store.Config
 }
 
@@ -30,9 +33,24 @@ func NewKVFS(opts Options) (*pathfs.PathNodeFs, error) {
 		return nil, err
 	}
 
+	root := opts.Root
+	if root != "" && root[0] == '/' {
+		root = root[1:]
+	}
+
+	if !strings.HasSuffix(root, "/") {
+		root = root + "/"
+	}
+
+	_, err = kv.List(root)
+	if err != nil {
+		return nil, fmt.Errorf("error setting root node %q: %v", opts.Root, err)
+	}
+
 	fs := pathfs.NewPathNodeFs(&FS{
 		FileSystem: pathfs.NewDefaultFileSystem(),
 		kvStore:    kv,
+		root:       root,
 	}, nil)
 	return fs, nil
 }
@@ -62,6 +80,7 @@ func (fs *FS) Open(name string, flags uint32, context *fuse.Context) (nodefs.Fil
 }
 
 func (fs *FS) OpenDir(name string, context *fuse.Context) ([]fuse.DirEntry, fuse.Status) {
+	name = path.Join(fs.root, name)
 	logrus.Debugf("OpenDir: %v", name)
 	if name == "" {
 		name = "/"

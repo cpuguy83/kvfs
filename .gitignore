@@ -22,3 +22,5 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+kvfs # make sure we don't commit the binary
