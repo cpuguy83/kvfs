@@ -13,7 +13,6 @@ import (
 	"github.com/docker/libkv/store/consul"
 	"github.com/docker/libkv/store/etcd"
 	"github.com/docker/libkv/store/zookeeper"
-	"github.com/hanwen/go-fuse/fuse/nodefs"
 )
 
 func init() {
@@ -79,7 +78,7 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	srv, _, err := nodefs.MountRoot(*flMountpoint, fs.Root(), nil)
+	srv, err := fs.NewServer(*flMountpoint)
 	if err != nil {
 		logrus.Fatal(err)
 	}

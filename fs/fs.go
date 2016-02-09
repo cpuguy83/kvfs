@@ -27,7 +27,7 @@ type Options struct {
 	Config store.Config
 }
 
-func NewKVFS(opts Options) (*pathfs.PathNodeFs, error) {
+func NewKVFS(opts Options) (*FS, error) {
 	kv, err := libkv.NewStore(store.Backend(opts.Store), opts.Addrs, &opts.Config)
 	if err != nil {
 		return nil, err
@@ -47,12 +47,11 @@ func NewKVFS(opts Options) (*pathfs.PathNodeFs, error) {
 		return nil, fmt.Errorf("error setting root node %q: %v", opts.Root, err)
 	}
 
-	fs := pathfs.NewPathNodeFs(&FS{
+	return &FS{
 		FileSystem: pathfs.NewDefaultFileSystem(),
 		kvStore:    kv,
 		root:       root,
-	}, nil)
-	return fs, nil
+	}, nil
 }
 
 func (fs *FS) Create(name string, _ uint32, _ uint32, _ *fuse.Context) (nodefs.File, fuse.Status) {
@@ -253,4 +252,11 @@ func (fs *FS) Truncate(name string, size uint64, context *fuse.Context) fuse.Sta
 
 func (fs *FS) String() string {
 	return "kvfs"
+}
+
+func (fs *FS) NewServer(mountPoint string) (*fuse.Server, error) {
+	conn := nodefs.NewFileSystemConnector(pathfs.NewPathNodeFs(fs, nil).Root(), nil)
+	return fuse.NewServer(conn.RawFS(), mountPoint, &fuse.MountOptions{
+		Name: fs.String(),
+	})
 }
